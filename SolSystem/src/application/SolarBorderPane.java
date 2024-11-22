@@ -46,7 +46,7 @@ public class SolarBorderPane extends Application {
 	 * function to show in a box ABout the programme
 	 */
 	 private void showAbout() {
-		 showMessage("About", "RJM's BorderPane Demonstrator");
+		 showMessage("About", "Akin's BorderPane Demonstrator");
 	 }
 
 	/**
@@ -86,9 +86,16 @@ public class SolarBorderPane extends Application {
 	 * show where Earth is, in pane on right
 	 */
 	public void drawStatus() {
+		
 		// clear rtPane
+		rtPane.getChildren().clear();
+		
 		// get label which has information on system - use ourSystem.toString()
+		   Label l = new Label(ourSystem.toString());
+		
+		
 		// add label to rtPane
+		rtPane.getChildren().add(l);
 	}
 
 	/**
@@ -100,7 +107,15 @@ public class SolarBorderPane extends Application {
 	    	       new EventHandler<MouseEvent>() {
 	    	           @Override
 	    	           public void handle(MouseEvent e) {
-	    	        	   /// write here code to put sun at e.x, e.y; redraw system and update panel
+	    	        	   
+	    	        	   ourSystem.setSystem(mc, e.getX(), e.getY());
+
+	    	                // Redraw the solar system
+	    	                ourSystem.drawSystem(mc);
+
+	    	                // Update the right panel with the latest information
+	    	                drawStatus();
+	    	        	   
 	    	           }
 	    	       });
 	}
@@ -112,11 +127,19 @@ public class SolarBorderPane extends Application {
     private HBox setButtons() {
     			// create button
     	Button btnBottom = new Button("Random Earth");
+    	
     			// now add handler
     	btnBottom.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent event) {
+    			
+    			double randAng = rgen.nextDouble(360);
+    			
+    			 ourSystem.updateSystem(randAng);
+    			
+    			 ourSystem.drawSystem(mc);
     			// write code here to put Earth at a random angle, and then draw system and update right panel
+    			 drawStatus();
     		}
     	});
        	return new HBox(btnBottom);
