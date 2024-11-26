@@ -2,6 +2,7 @@ package application;
 
 import java.util.Random;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,7 +29,11 @@ public class SolarBorderPane extends Application {
     private MyCanvas mc;						// canvas into which system drawn
     private SimpleSolar ourSystem;				// simple model of solar system
     private int canvasSize = 512;				// size of canvas
+    private boolean isAnimationOn = false; // Animation state
+    private AnimationTimer animationTimer; // Single instance of AnimationTimer
 
+    
+    
 	 /**
 	  * Function to show a message, 
 	  * @param TStr		title of message block
@@ -47,7 +52,12 @@ public class SolarBorderPane extends Application {
 	 */
 	 private void showAbout() {
 		 showMessage("About", "Akin's BorderPane Demonstrator");
+		
 	 }
+	 
+	 private void showHelp() {
+		    showMessage("Help", "cool");
+		}
 
 	/**
 	 * Function to set up the menu
@@ -56,16 +66,37 @@ public class SolarBorderPane extends Application {
 		MenuBar menuBar = new MenuBar();		// create menu
 
 		Menu mHelp = new Menu("Help");			// have entry for help
+		
 				// then add sub menus for About and Help
 				// add the item and then the action to perform
 		MenuItem mAbout = new MenuItem("About");
+		MenuItem help = new MenuItem("More-Help");
+		
+		
+		mAbout.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+            					// show the about message
+            }	
+		});
+		
+		
 		mAbout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
             	showAbout();				// show the about message
             }	
 		});
+		
+		
+		help.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+            	showHelp();				// show the help message
+            }	
+		});
 		mHelp.getItems().addAll(mAbout); 	// add submenus to Help
+		mHelp.getItems().addAll(help);
 		
 				// now add File menu, which here only has Exit
 		Menu mFile = new Menu("File");
@@ -124,27 +155,54 @@ public class SolarBorderPane extends Application {
 	 * set up the button and return so can add to borderpane
 	 * @return
 	 */
-    private HBox setButtons() {
-    			// create button
-    	Button btnBottom = new Button("Random Earth");
-    	
-    			// now add handler
-    	btnBottom.setOnAction(new EventHandler<ActionEvent>() {
+	private HBox setButtons() {
+	    // Create buttons
+	    Button btnRandomEarth = new Button("Random Earth");
+	    Button btnStart = new Button("Start");
+	    Button btnPause = new Button("Pause");
+
+	    // Initialise the AnimationTimer
+	    animationTimer = new AnimationTimer() {
+	        private final long startNanoTime = System.nanoTime();
+
+	        @Override
+	        public void handle(long currentNanoTime) {
+	            if (isAnimationOn) { // Only update system if animation is on
+	                double t = (currentNanoTime - startNanoTime) / 1_000_000_000.0; // Calculate time in seconds
+	                ourSystem.updateSystem(t); // Update the solar system's state
+	                ourSystem.drawSystem(mc);  // Redraw the solar system
+	            }
+	        }
+	    };
+	    animationTimer.start(); // Start the timer once; animation logic is controlled by `isAnimationOn`
+
+	    // Start Button Handler
+	 btnStart.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent event) {
-    			
-    			double randAng = rgen.nextDouble(360);
-    			
-    			 ourSystem.updateSystem(randAng);
-    			
-    			 ourSystem.drawSystem(mc);
-    			// write code here to put Earth at a random angle, and then draw system and update right panel
-    			 drawStatus();
+	        isAnimationOn = true; // Set animation state to true
     		}
-    	});
-       	return new HBox(btnBottom);
-    }
+	    });
 
+	 btnPause.setOnAction(new EventHandler<ActionEvent>() {
+ 		@Override
+ 		public void handle(ActionEvent event) {
+	        isAnimationOn = false; // Set animation state to true
+ 		}
+	    });
+	    // Random Earth Button Handler
+	    btnRandomEarth.setOnAction(new EventHandler<ActionEvent>() {
+	 		@Override
+	 		public void handle(ActionEvent event) {
+	        double randAng = rgen.nextDouble(360); // Generate a random angle
+	        ourSystem.updateSystem(randAng); // Update the system
+	        ourSystem.drawSystem(mc); // Redraw the system
+	        drawStatus(); // Update the status panel
+	 		}
+	    });
+
+	    return new HBox(btnRandomEarth, btnStart, btnPause);
+	}
 	
 	@Override
 	public void start(Stage stagePrimary) throws Exception {
