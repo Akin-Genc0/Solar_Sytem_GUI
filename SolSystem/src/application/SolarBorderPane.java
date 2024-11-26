@@ -195,7 +195,7 @@ public class SolarBorderPane extends Application {
 	 		@Override
 	 		public void handle(ActionEvent event) {
 	        double randAng = rgen.nextDouble(360); // Generate a random angle
-	        ourSystem.updateSystem(randAng); // Update the system
+	        ourSystem.updateSystem(randAng); 
 	        ourSystem.drawSystem(mc); // Redraw the system
 	        drawStatus(); // Update the status panel
 	 		}
