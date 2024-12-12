@@ -14,6 +14,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,7 @@ public class SolarViewer extends Application {
     private SolarSystem ourSystem;				// object for solar system
     private VBox rtPane;						// Vertical box for displaying status of planets
     private boolean animationOn = false;
+  
 
 	/**
 	 * show where Earth is, in pane on right
@@ -40,10 +42,17 @@ public class SolarViewer extends Application {
 	 * draw the sun, planets and satellites
 	 */
 	public void displaySystem() {
+		
 		mc.clearCanvas();
 		ourSystem.drawSystem(mc);
 		drawStatus();
 	}
+	
+	
+	
+
+	
+	
 	
 	 /**
 	  * Function to show a message, 
@@ -62,7 +71,7 @@ public class SolarViewer extends Application {
 	 * function to show in a box ABout the programme
 	 */
 	 private void showAbout() {
-		 showMessage("About", "RJM's Solar System Demonstrator");
+		 showMessage("About", "Akin Solar System Demonstrator");
 	 }
 
 	/**

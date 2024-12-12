@@ -171,6 +171,7 @@ public class SolarBorderPane extends Application {
 	                double t = (currentNanoTime - startNanoTime) / 1_000_000_000.0; // Calculate time in seconds
 	                ourSystem.updateSystem(t); // Update the solar system's state
 	                ourSystem.drawSystem(mc);  // Redraw the solar system
+	    	        drawStatus(); 
 	            }
 	        }
 	    };
@@ -181,6 +182,7 @@ public class SolarBorderPane extends Application {
     		@Override
     		public void handle(ActionEvent event) {
 	        isAnimationOn = true; // Set animation state to true
+	        drawStatus(); 
     		}
 	    });
 
@@ -188,6 +190,7 @@ public class SolarBorderPane extends Application {
  		@Override
  		public void handle(ActionEvent event) {
 	        isAnimationOn = false; // Set animation state to true
+	        drawStatus(); 
  		}
 	    });
 	    // Random Earth Button Handler

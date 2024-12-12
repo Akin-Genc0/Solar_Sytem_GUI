@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 public class SolarSystem {
 	private double sunX, sunY, sunSize;				// positions of sun
     private Image sun;								// imnge of sun
+    private Planet earth;
 
 //    private Planet Earth;
     
@@ -18,6 +19,8 @@ public class SolarSystem {
      * constructor for setting up solar system
      */
 	public SolarSystem() {   
+	
+		earth = new Planet("Earth", "earth.png", 0.05, 0.3, 1);
 	
 	    sun = new Image(getClass().getResourceAsStream("sun.png"));
 	    sunX = 0.5;
@@ -40,6 +43,8 @@ public class SolarSystem {
 		drawImage(mc, sun, 0, 0, sunSize);			// draw Sun,
 	}
 	
+	
+	
 	/**
 	 * drawImage into canvas, at position x,y relative to sun, but scale the x,y and sz before drawing
 	 * @param mc	canvas
@@ -57,8 +62,7 @@ public class SolarSystem {
 	 * return String with info of planet(s) in system
 	 */
 	public String toString() {
-		String s = "";
-		return s;
-	}
+		  return "Earth " + earth;
+		}
 
 }
