@@ -44,7 +44,7 @@ public class Planet {
 	}
 	
 	public String toString() {
-		return "Planet " + name + "angle=" + angle + ", orbitSize=" + orbitSize + ", speed=" + orbitSpeed;
+		return "Planet " + name + ": angle=" + angle + ", orbitSize=" + orbitSize + ", speed=" + orbitSpeed;
 
 		}
 	
