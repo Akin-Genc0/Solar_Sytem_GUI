@@ -11,9 +11,6 @@ import javafx.scene.image.Image;
 public class SolarSystem {
 	private double sunX, sunY, sunSize;				// positions of sun
     private Image sun;								// imnge of sun
-    private Planet earth;
-    private Planet mars;
-    private Satellite moon;
     private ArrayList<Planet> planets;
 
 //    private Planet Earth;
@@ -26,7 +23,7 @@ public class SolarSystem {
 	public SolarSystem() {   
 	
 	    
-		 sun = new Image(getClass().getResourceAsStream("sun.png"));
+		 sun = new Image(getClass().getResourceAsStream("sunn.png"));
 		    sunX = 0.5;
 		    sunY = 0.5;
 		    sunSize = 0.2;
@@ -35,17 +32,25 @@ public class SolarSystem {
 		planets = new ArrayList<>(); // Initialise the ArrayList
 
         // Create Earth and Mars as Planet objects
-        Planet earth = new Planet("Earth", "earth.png", 0.05, 0.3, 1.3);
-        Planet mars = new Planet("Mars", "mars.png", 0.039, 0.38, 1);
+        Planet earth = new Planet("Earth", "earth.png", 0.05, 0.35, 1);
+        Planet mars = new Planet("Mars", "mars.png", 0.039, 0.4, 0.75);
+        Planet venus = new Planet("Venus", "venus.png", 0.045, 0.25, 0.9);
+        Planet merc = new Planet("merc", "merc.jpeg", 0.03, 0.17, 1.1);
+        
         
         // Create the Moon as a Satellite orbiting Earth
         Satellite moon = new Satellite("Moon", "moon.png", 0.025, 0.05, 5, earth);
-
+        Satellite dem = new Satellite("Moon", "deimos.png", 0.015, 0.05, 5, mars);
+        Satellite pho = new Satellite("Moon", "phob.png", 0.01, 0.08 , 8, mars);
         // Add Earth, Mars, and the Moon to the ArrayList
         planets.add(earth);
         planets.add(mars);
         planets.add(moon);
-	    
+        planets.add(venus);
+        planets.add(merc);
+        planets.add(dem);
+        planets.add(pho);
+        
 	    
 	   
 	    
