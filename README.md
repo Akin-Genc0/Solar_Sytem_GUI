@@ -1,4 +1,4 @@
-# Solar System Simulator 🌍☀️🌑  
+# Solar System Simulator  
 
 A **solar system simulation** that visualises the orbits of **Mercury**, **Venus**, **Earth**, and **Mars** around the sun, along with their moons orbiting the respective planets. This project was created to enhance my **Java** and **JavaFX** skills, focusing on **object-oriented programming**, **dynamic animations**, and **graphical rendering** in a simple, interactive interface.
 
